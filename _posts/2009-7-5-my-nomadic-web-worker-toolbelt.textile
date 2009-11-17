@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: My nomadic web worker toolbelt
+---
+h4. Virtual tools
+
+|!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/logo-bs_white.png(Blinksale)!|*"Blinksale":http://www.blinksale.com*|I use Blinksale as a way to log my hours during my workday as well as send invoices and keep track of my business income.  Its SaaS approach to invoicing makes it very attractive for backing up my critical financial data.  Their pricing is reasonable, too.|
+|!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/pivotaltracker_thumb.png(Pivotal Tracker)!|*"Pivotal Tracker":http://www.pivotaltracker.com*|Some call it the iPod of bug tracking tools.  I employ it because it understands and applies agile methodologies in a clean manner.  What's more, it's free and well-maintained.  If you're managing multiple projects and need a way to keep all of your project details in a well-organized dashboard, Pivotal will keep you and your clients happy.|
+|!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/omnifocus-screenshot-5_thumb.png(OmniFocus)!|*"OmniFocus":http://www.omnigroup.com/applications/omnifocus/*|Ever since I read David Allen's Getting Things Done and started using his personal organizational practices in my own life, I've been trying different implementations of the context-project-based task management he suggests.  OmniFocus definitely comes closest to recreating Allen's vision for a single collection node for your tasks.  If you're a Mac user, I highly recommend it.|
+
+h4. Durables
+
+|*Bicycle*|This is indispensable for those frustrating days where you just want to ride off into the sunset to forget the ten hours you spent debugging one JavaScript error in Internet Explorer.  For the technomad, bicycles are the ideal mode of transportation.  Our otherwise sedentary lifestyles require us to compensate for our physical activity in other ways.|
+|*Water bottle*|If you like to ride to the far reaches of town for that cafe on the outskirts in the morning like I do, you'll want to stay hydrated.  Plus, water is good for your well-being, and will certainly make you more productive.|
+|*Index cards*|Okay, so maybe I _do_ still write on real paper.  Sometimes the best way to think through a problem is to have a means of doodling.  I carry index cards in my backpack alongside my MacBook Pro.|
+|*Long battery life*|I just bought one of the new MacBook Pros with the 7-8 hour battery (although it's actually more like 5-6 hours).  There's nothing more fufilling than sitting outside on a picnic table drinking coffee and earning your living doing it.  Stay mobile and bring the extra battery.|
+
+That's how I manage my freelancing lifestyle.  What tools do you use to manage yours?

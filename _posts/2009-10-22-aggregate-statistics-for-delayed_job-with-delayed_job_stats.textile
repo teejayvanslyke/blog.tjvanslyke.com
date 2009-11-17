@@ -1,0 +1,14 @@
+--- 
+layout: post
+title: Aggregate statistics for delayed_job with delayed_job_stats
+---
+I've recently found myself frustrated at the lack of immediate visibility with "delayed_job":http://github.com/tobi/delayed_job.  After hunting around online for an existing solution, I bit the bullet and created a plugin called "delayed_job_stats":http://github.com/teejayvanslyke/delayed_job_stats to provide me with some useful statistics about delayed_job via Rake and Capistrano:
+
+{% highlight ruby %}
+    Jobs remaining: 803
+    Jobs run:       0
+    Jobs failed:    0
+    Workers:        1
+{% endhighlight %}
+
+Take a look at the README at the project's "GitHub repository":http://github.com/teejayvanslyke/delayed_job_stats for instructions.

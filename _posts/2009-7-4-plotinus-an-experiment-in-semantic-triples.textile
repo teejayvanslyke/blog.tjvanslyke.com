@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: "Plotinus:  An experiment in semantic triples"
+---
+
+
+And that's what I've started to do with "Plotinus":http://www.plotinus.net:
+
+!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/4/Picture_5.png(Plotinus)!
+
+Enter a noun phrase into the 'Subject' field.  At the time of this writing, there are very few entries, so you may have to try 'Portland' if you want to see it in action.  As soon as Plotinus finds a match, it will display all of the possible triples which match your input thusfar.
+
+If you enter a statement which you know to be true which yields no results, Plotinus will prompt you to add the triple to its database.  
+
+The project is in extreme infancy at the moment.  I'd like to eventually expand it to include pages for each individual triple with a section for discussion and citations.  
+
+Hey academics, what do you think? "(link)":http://www.plotinus.net

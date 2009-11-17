@@ -1,0 +1,7 @@
+--- 
+layout: post
+title: Capistrano with multiple servers running on Ruby 1.8.7p111
+---
+If you're like me, you run the latest Ruby from MacPorts.  Capistrano has a strange bug where the entire process hangs while attempting to initiate connections to multiple servers asynchronously.  According to a post by Sean on the "bug report":https://capistrano.lighthouseapp.com/projects/8716/tickets/79-capistrano-hangs-on-shell-command-for-many-computers-on-ruby-186-p368, this is due to a difference in the thread implementation in 1.8.7.  In any case, I've applied the patch he recommends within a "fork of Capistrano":http://github.com/teejayvanslyke/capistrano/ on "my GitHub account":http://github.com/teejayvanslyke/.
+
+Let me know if it comes in handy, or if you have any news regarding the bug.

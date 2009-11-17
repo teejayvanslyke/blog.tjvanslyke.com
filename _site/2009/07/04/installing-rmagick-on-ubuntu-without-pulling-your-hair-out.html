@@ -1,0 +1,195 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='us-EN' xml:lang='us-EN' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type' />
+    <title>T.J. VanSlyke - Blog - Installing RMagick on Ubuntu without pulling your hair out </title>
+    <meta content='The professional dossier of T.J. VanSlyke, web developer and software engineer.' name='description' />
+    <meta content='web, rails, ruby, javascript, jquery, user interface, developer, software' name='keywords' />
+    <script src="http://assets0.tjvanslyke.com.s3.amazonaws.com/javascripts/all.js?1243828794" type="text/javascript"></script>
+    <link href="http://assets0.tjvanslyke.com.s3.amazonaws.com/stylesheets/all.css?1243828794" media="screen" rel="stylesheet" type="text/css" />
+
+    <!--[if IE]>
+    <link href="http://assets1.tjvanslyke.com.s3.amazonaws.com/stylesheets/blueprint/ie.css?1246823864" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="http://assets3.tjvanslyke.com.s3.amazonaws.com/stylesheets/ie.css?1246823864" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <link href="/stylesheets/syntax.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript">
+      //<![CDATA[
+    var section = 'posts'
+    $(function() {
+
+        });
+//]]>
+</script>
+  </head>
+  <body>
+    <link href="http://blog.tjvanslyke.com/feed" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <div id='header'>
+      <div class='container'>
+        <div class='span-24 last'>
+          <div class='span-8'>
+
+            <h1>
+              <a href="http://www.tjvanslyke.com/" class="typeface-js">T.J. VanSlyke</a>
+            </h1>
+          </div>
+
+          <div class='span-16 last'>
+            <h2 class='blog'>Blog.</h2>
+          </div>
+
+          <div class='span-24 last'>
+            <div class='navigation typeface-js'>
+              <span class='blog'><a href="/">Blog</a></span>
+              <span class='pipe'>/</span>
+
+              <span class='skills'><a href="http://tjvanslyke.com/skills">Skills</a></span>
+              <span class='pipe'>/</span>
+              <span class='projects'><a href="http://tjvanslyke.com/projects">Projects</a></span>
+
+              <span class='pipe'>/</span>
+              <span class='history'><a href="http://tjvanslyke.com/history">History</a></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+
+      <div id='content'>
+        <div class='span-24 last' id='body'>
+          <div class='span-8'>
+
+            <div id='sidebar'>
+              <!--<div class="block">
+                <h3>Recent Posts</h3>
+                <ul>
+                  <li><a href="/2009/10/22/aggregate-statistics-for-delayed_job-with-delayed_job_stats" title="Aggregate statistics for delayed_job with delayed_job_stats">Aggregate statistics for delayed_job with delayed_job_stats</a></li>
+                </ul>
+              </div>-->
+              <div class='block'>
+                <h3>Huh?</h3>
+                <p>
+                Hi.  I'm T.J. VanSlyke and I live and work in Portland, Oregon.  I have been
+                developing Rails applications since version 1.1 and programming nearly my entire
+                life.  I'm currently available for your small, medium, or large development
+                project.
+                </p>
+              </div>
+
+              <div class='block'>
+
+                <script type="text/javascript"><!--
+                  google_ad_client = "pub-0047314205114175";
+                  /* tjvanslyke.com sidebar */
+                  google_ad_slot = "2336311333";
+                  google_ad_width = 300;
+                  google_ad_height = 250;
+                  //-->
+                  </script>
+                  <script type="text/javascript"
+                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                  </div>
+                </div>
+              </div>
+
+              <div class="span-16 last">
+                <div id="content">
+
+
+
+
+              <div id="main">
+                  <div class="post entry-23456269352160">
+                    <h4>Installing RMagick on Ubuntu without pulling your hair out</h4>
+                    <p><code>apt-get</code> is great for 99% of installation scenarios, but sometimes it just doesn&#8217;t cut it for installing development headers.  Take a look at the output from running <code>sudo gem install rmagick</code> after installing ImageMagick from <code>apt-get</code>:</p>
+<div class="highlight"><pre>ERROR:  Error installing rmagick:
+	ERROR: Failed to build gem native extension.
+
+/usr/bin/ruby1.8 extconf.rb install rmagick
+checking <span class="k">for </span>Ruby version &gt;<span class="o">=</span> 1.8.5... yes
+checking <span class="k">for </span>cc... yes
+checking <span class="k">for </span>Magick-config... no
+Can<span class="s1">&#39;t install RMagick 2.10.0. Can&#39;</span>t find Magick-config in /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin
+
+*** extconf.rb failed ***
+Could not create Makefile due to some reason, probably lack of
+necessary libraries and/or headers.  Check the mkmf.log file <span class="k">for </span>more
+details.  You may need configuration options.
+
+Provided configuration options:
+	--with-opt-dir
+	--without-opt-dir
+	--with-opt-include
+	--without-opt-include<span class="o">=</span><span class="k">${</span><span class="nv">opt</span><span class="p">-dir</span><span class="k">}</span>/include
+	--with-opt-lib
+	--without-opt-lib<span class="o">=</span><span class="k">${</span><span class="nv">opt</span><span class="p">-dir</span><span class="k">}</span>/lib
+	--with-make-prog
+	--without-make-prog
+	--srcdir<span class="o">=</span>.
+	--curdir
+	--ruby<span class="o">=</span>/usr/bin/ruby1.8
+
+
+Gem files will remain installed in /usr/lib/ruby/gems/1.8/gems/rmagick-2.10.0 <span class="k">for </span>inspection.
+Results logged to /usr/lib/ruby/gems/1.8/gems/rmagick-2.10.0/ext/RMagick/gem_make.out
+</pre>
+</div><p>As it turns out, we can simplify our lives by complicating it and actually <em>compiling the thing from source</em>:</p>
+<div class="highlight"><pre><span class="nv">$ </span>wget ftp://ftp.fifi.org/pub/ImageMagick/ImageMagick-6.5.4-2.tar.gz 
+<span class="nv">$ </span>tar xvzf ImageMagick-6.5.4-2.tar.gz 
+<span class="nv">$ </span><span class="nb">cd </span>ImageMagick-6.5.4-2
+<span class="nv">$ </span>./configure
+<span class="nv">$ </span>make
+<span class="nv">$ </span>sudo make install
+</pre>
+</div><p>Finally, RMagick will find the headers!</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo gem install rmagick
+Building native extensions.  This could take a <span class="k">while</span>...
+Successfully installed rmagick-2.10.0
+1 gem installed
+Installing ri documentation <span class="k">for </span>rmagick-2.10.0...
+</pre>
+</div>
+                  </div>
+
+                    <script type="text/javascript"><!--
+                      google_ad_client = "pub-0047314205114175";
+                      /* blog.tjvanslyke.com, banner */
+                      google_ad_slot = "3373941054";
+                      google_ad_width = 468;
+                      google_ad_height = 60;
+                      //-->
+                      </script>
+                      <script type="text/javascript"
+                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+
+
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </body>
+                <script type='text/javascript'>
+                  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                  </script>
+                  <script type='text/javascript'>
+                    try {
+                      var pageTracker = _gat._getTracker("UA-8268183-1");
+                      pageTracker._trackPageview();
+                    } catch(err) {}
+                  </script>
+                </html>
+

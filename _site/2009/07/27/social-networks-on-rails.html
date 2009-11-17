@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='us-EN' xml:lang='us-EN' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='content-type' />
+    <title>T.J. VanSlyke - Blog - Social networks on Rails </title>
+    <meta content='The professional dossier of T.J. VanSlyke, web developer and software engineer.' name='description' />
+    <meta content='web, rails, ruby, javascript, jquery, user interface, developer, software' name='keywords' />
+    <script src="http://assets0.tjvanslyke.com.s3.amazonaws.com/javascripts/all.js?1243828794" type="text/javascript"></script>
+    <link href="http://assets0.tjvanslyke.com.s3.amazonaws.com/stylesheets/all.css?1243828794" media="screen" rel="stylesheet" type="text/css" />
+
+    <!--[if IE]>
+    <link href="http://assets1.tjvanslyke.com.s3.amazonaws.com/stylesheets/blueprint/ie.css?1246823864" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="http://assets3.tjvanslyke.com.s3.amazonaws.com/stylesheets/ie.css?1246823864" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <link href="/stylesheets/syntax.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript">
+      //<![CDATA[
+    var section = 'posts'
+    $(function() {
+
+        });
+//]]>
+</script>
+  </head>
+  <body>
+    <link href="http://blog.tjvanslyke.com/feed" rel="alternate" title="RSS" type="application/rss+xml" />
+
+    <div id='header'>
+      <div class='container'>
+        <div class='span-24 last'>
+          <div class='span-8'>
+
+            <h1>
+              <a href="http://www.tjvanslyke.com/" class="typeface-js">T.J. VanSlyke</a>
+            </h1>
+          </div>
+
+          <div class='span-16 last'>
+            <h2 class='blog'>Blog.</h2>
+          </div>
+
+          <div class='span-24 last'>
+            <div class='navigation typeface-js'>
+              <span class='blog'><a href="/">Blog</a></span>
+              <span class='pipe'>/</span>
+
+              <span class='skills'><a href="http://tjvanslyke.com/skills">Skills</a></span>
+              <span class='pipe'>/</span>
+              <span class='projects'><a href="http://tjvanslyke.com/projects">Projects</a></span>
+
+              <span class='pipe'>/</span>
+              <span class='history'><a href="http://tjvanslyke.com/history">History</a></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+
+      <div id='content'>
+        <div class='span-24 last' id='body'>
+          <div class='span-8'>
+
+            <div id='sidebar'>
+              <!--<div class="block">
+                <h3>Recent Posts</h3>
+                <ul>
+                  <li><a href="/2009/10/22/aggregate-statistics-for-delayed_job-with-delayed_job_stats" title="Aggregate statistics for delayed_job with delayed_job_stats">Aggregate statistics for delayed_job with delayed_job_stats</a></li>
+                </ul>
+              </div>-->
+              <div class='block'>
+                <h3>Huh?</h3>
+                <p>
+                Hi.  I'm T.J. VanSlyke and I live and work in Portland, Oregon.  I have been
+                developing Rails applications since version 1.1 and programming nearly my entire
+                life.  I'm currently available for your small, medium, or large development
+                project.
+                </p>
+              </div>
+
+              <div class='block'>
+
+                <script type="text/javascript"><!--
+                  google_ad_client = "pub-0047314205114175";
+                  /* tjvanslyke.com sidebar */
+                  google_ad_slot = "2336311333";
+                  google_ad_width = 300;
+                  google_ad_height = 250;
+                  //-->
+                  </script>
+                  <script type="text/javascript"
+                    src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                  </div>
+                </div>
+              </div>
+
+              <div class="span-16 last">
+                <div id="content">
+
+
+
+
+              <div id="main">
+                  <div class="post entry-23456269352160">
+                    <h4>Social networks on Rails</h4>
+                    <p><img src="http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/27/friends.jpg" alt="" /></p>
+<p>These days, everyone wants a social network.  I&#8217;ve received two RFP&#8217;s only a few weeks apart from one another for custom social networking applications, and my fingers are quite tired of typing <code>has_many :friends, :class_name =&gt; 'User'</code>.  In order to allow me to rest my tired hands, I did a brief survey of the Rails-centric social networking solutions available.</p>
+<p>Note that I cannot take full credit for my findings.  <a href="http://stackoverflow.com/questions/48320/best-ruby-on-rails-social-networking-framework">This post on Stack Overflow</a> was very helpful in my pursuit.</p>
+<p>Without further ado, I present the three current big contenders:  <a href="http://lovdbyless.com">Lovd By Less</a>, <a href="http://portal.insoshi.com">Insoshi</a>, and <a href="http://www.communityengine.org">Community Engine</a>:</p>
+<h4>Lovd By Less</h4>
+<p>Lovd By Less is the brainchild of <a href="http://lesseverything.com">Less Everything</a>.  It provides a baseline social networking application with support for friendships, advanced profile functionality, gravatars, user blogs, Flickr and YouTube integration, and more.  A look under the hood also reveals an impressively elegant permissions system with out-of-the-box support for extension via custom controllers.</p>
+<p>Unfortunately, Lovd&#8217;s status as a Rails application means it cannot be (easily) integrated into an existing application.</p>
+<h4>Insoshi</h4>
+<p>Insoshi was created by the author of <a href="http://railsspace.com">RailsSpace</a>, a tutorial for creating Rails social networking applications.  It too is a standalone Rails application to serve as a starting point for your custom social networking site, so it isn&#8217;t really a choice if you need to integrate social networking capabilities into your existing application.</p>
+<p>Insoshi also has a dual license agreement.  Insoshi is licensed under the Affero <span class="caps">GPL</span>, so you&#8217;ll need to distribute the source code to your users unless you cough up the commercial license fee.</p>
+<h4>Community Engine</h4>
+<p>Community Engine takes a different approach to the social networking problem than Lovd or Insoshi.  Rather than provide a codebase from which you derive your application, Community Engine provides a Rails plugin which can even be integrated into existing applications.</p>
+<p>Despite this, I found Community Engine to be unnecessarily bloated for my purposes.  What&#8217;s more, the plugin uses Test::Unit for its test suite.  I&#8217;m just partial to RSpec, I guess.</p>
+<h4>The Verdict</h4>
+<p>If I had to make a recommendation, Lovd By Less would win out for sure.  It took me fewer than 10 minutes to set up a working social networking site, and only a few more minutes to add custom functionality.  Its commercial-friendly <span class="caps">BSD</span> license means you&#8217;re free to use it to create the next MySpace (but please don&#8217;t).</p>
+                  </div>
+
+                    <script type="text/javascript"><!--
+                      google_ad_client = "pub-0047314205114175";
+                      /* blog.tjvanslyke.com, banner */
+                      google_ad_slot = "3373941054";
+                      google_ad_width = 468;
+                      google_ad_height = 60;
+                      //-->
+                      </script>
+                      <script type="text/javascript"
+                        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+
+
+
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </body>
+                <script type='text/javascript'>
+                  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                  </script>
+                  <script type='text/javascript'>
+                    try {
+                      var pageTracker = _gat._getTracker("UA-8268183-1");
+                      pageTracker._trackPageview();
+                    } catch(err) {}
+                  </script>
+                </html>
+

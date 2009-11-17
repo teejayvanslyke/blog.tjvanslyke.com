@@ -1,0 +1,123 @@
+--- 
+layout: post
+title: Applying GTD to BDD
+---
+h4. Collect
+
+Until recently I found myself writing single @describe@ and @it@ blocks, making them pass, and repeating the process.  While this can work just fine for simple classes where you can picture the implementation before writing it, this method leaves gaps in your understanding of larger, more complex classes and modules.  To ensure you've captured _all_ of a class's behavior, go through a brainstorming exercise to holistically evaluate the behavior of a class from the top down.  First, establish some contexts for which there will be differing behavior:
+
+{% highlight ruby %}
+describe Airplane do
+  context "- When in the air"
+  context "- When on the ground"
+  context "- After landing"
+  context "- Before takeoff"
+  context "- When spiraling toward imminent death"
+end
+{% endhighlight %}
+
+Continue to scribble down all of the possible contexts in which your class or module will exhibit different behavior.  Don't hesitate to include anything and everything, as we'll prune and organize your thoughts soon.
+
+Our next step is to continue drilling down into the individual behaviors across each context.  Again, don't be shy about including everything on your mind:
+
+{% highlight ruby %}
+describe Airplane do
+  context "- When in the air" do
+    it "should be flying"
+    it "should not be on the ground"
+    it "should have a pilot"
+    it "should have a copilot"
+    it "should have payload"
+  end
+  ...
+end
+{% endhighlight %}
+
+You might encounter scenarios in your mind wherein additional contexts are required.  This is a good time to adjust your contexts so implementation becomes a matter of working through your spec like a checklist.  You may also encounter scenarios where a sub-context is required.  For example, we might want to allow the plane to have no passengers if the pilot is in training:
+
+{% highlight ruby %}
+describe Airplane do
+  context "- When in the air" do
+    it "should be flying"
+    it "should not be on the ground"
+    it "should have a pilot"
+    it "should have a copilot"
+    context "and the pilot is in training" do
+      it "should have no payload"
+    end
+    context "and the pilot is not in training" do
+      it "should have payload"
+    end
+  end
+  ...
+end
+{% endhighlight %}
+
+h4. Process
+
+Now that we've exhausted our imaginations of all the possible behaviors for our class, it's time to begin *processing* them so we know which can be implemented and which might require more attention.  Go down your behavior tree item by item and evaluate whether the behavior you've described fits within the product owner's expectation for the user story to which this class or module belongs.  If you're unsure, add a @pending@ tag with a note:
+
+{% highlight ruby %}
+describe Airplane do
+  context "- When in the air" do
+    ...
+    it "should have a copilot" do
+      pending "We're waiting on a specification from the PO -- he never told us whether planes can be run by a single pilot."
+    end
+    ...
+  end
+  ...
+end
+{% endhighlight %}
+
+
+By doing this, you've kept your uncertainty logged in the codebase in such a way it will be seen _every_ time you run your test suite.  This than adding a @REVIEW@ or @TODO@ item in your production code, since the addendum will be linked to a behavior rather than implementation.
+
+Next, evaluate whether any of the behaviors can be done away with entirely.  Have a colleague look over your specification and I'm sure you'll find a few points of disagreement.
+
+After coming to agreement about the class's behaviors, go ahead and delegate the decision making on your pending items to your product owner.
+
+h4.  Organize
+
+Now that you've processed each behavior and determined whether it can and should be implemented, we can begin the process of reorganizing and polishing our context tree to ensure it is readable and maintainable by whomever might have the pleasure of maintaining your code in the future.  In RSpec, specdoc is your secret weapon:
+
+{% highlight bash %}
+$ spec airplane_spec.rb -fs
+
+Airplane - When in the air
+- should be flying (PENDING: Not Yet Implemented)
+- should not be on the ground (PENDING: Not Yet Implemented)
+- should have a pilot (PENDING: Not Yet Implemented)
+- should have a copilot (PENDING: We're waiting on a specification from the PO -- he never told us whether planes can be run by a single pilot.)
+
+Airplane - When in the air and the pilot is in training
+- should have no payload (PENDING: Not Yet Implemented)
+
+Airplane - When in the air and the pilot is not in training
+- should have payload (PENDING: Not Yet Implemented)
+
+...
+{% endhighlight %}
+
+Ask yourself the following questions:
+
+# Do each of the contexts and behaviors read like English?
+# Can you derive a _reason_ for implementing each behavior, or is the specific reason noted in the behavior?
+# Would you feel confident handing the specdoc output to your PO for review?
+
+Amend your behavior descriptions until you can answer 'yes' to these three questions with confidence.
+
+h4.  Review
+
+In nearly every team I've worked with, this tends to be the most overlooked of all five principles in GTD.  Once per week, you and/or your team should take the time to review the following buckets of items:
+
+* Pending RSpec examples
+* Items flagged by @rake notes@ (@TODO@, @FIXME@, etc)
+
+Time box your effort to an hour or two, and ensure that each item is resolved, either immediately, or with a followup action.  
+
+h4.  Do
+
+You've deliberated on the most effective way to move forward with your implementation.  You've constructed a well-tailored checklist of behaviors to be implemented, and can now say with confidence that the behaviors described match your requirements.  March on valiantly and implement them!  I'll leave this step to you, fine readers.
+
+No matter your BDD experience level, I hope this provides you with a useful framework through which to conduct your day-to-day development activities.  Stay focused, review often, and most of all, have fun.

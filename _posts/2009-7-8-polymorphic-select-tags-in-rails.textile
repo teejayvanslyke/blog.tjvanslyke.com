@@ -1,0 +1,39 @@
+--- 
+layout: post
+title: Polymorphic select tags in Rails
+---
+A client recently needed to be able to select items of different types from a select box and have both the selected item's ID and type propagate through the form's POST request.  Rails makes polymorphism as easy as it can, but select boxes are one place its support could use a bit of work.  
+
+My solution was a helper called @polymorphic_select_tag@:
+
+{% highlight ruby %}
+  def polymorphic_select_tag(object, field, option_array=[], options={}, html_options={})
+    option_tags = content_tag(:option, nil, :selected => true) +
+      option_array.map do |tuple|
+        content_tag(:option, tuple[0], :value => "#{tuple[1][0]}-#{tuple[1][1]}")
+      end.join('') 
+
+    prefix               = options[:prefix] || ''
+    object_id            = object.id
+    object_type          = object.class.name.downcase
+    select_tag_id        = "__#{prefix}_#{object_type}_#{field}_select_#{object_id}__"
+    hidden_type_field_id = "#{prefix}_#{object_type}_#{field}_type_#{object_id}"
+    hidden_id_field_id   = "#{prefix}_#{object_type}_#{field}_id_#{object_id}"
+
+    onchange = "$('##{hidden_id_field_id}').val($('##{select_tag_id}').val().split('-')[1]);"+
+               "$('##{hidden_type_field_id}').val($('##{select_tag_id}').val().split('-')[0]);"
+
+    hidden_field_tag("#{object_type}[#{field}_type]", nil, :id => hidden_type_field_id) +
+    hidden_field_tag("#{object_type}[#{field}_id]", nil,   :id => hidden_id_field_id) +
+    select_tag(select_tag_id, option_tags, 
+               html_options.merge(:onchange => onchange))
+  end
+{% endhighlight %}
+
+Yes, it's messy.  If you gemified it and cleaned it up I'd be grateful.  But I digress.  For demonstration, let's say we have models @Car@ and @Truck@.  Our model @Driver@ needs to be able to set the field @vehicle@ and choose from the list.  @polymorphic_select_tag@ could be called as such:
+
+{% highlight ruby %}
+polymorphic_select_tag(@driver, :vehicle, [ [ 'Big Rig', [ Truck, 1 ] ], [ 'Cadillac', [ Car, 2 ] ])
+{% endhighlight %}
+
+Note that, like a regular select options array, we use a tuple syntax, except here we've nested the second element in each tuple with the type and the ID.  You'll need to write a separate helper to generate this from your models, but @polymorphic_select_tag@ will take care of the rest.

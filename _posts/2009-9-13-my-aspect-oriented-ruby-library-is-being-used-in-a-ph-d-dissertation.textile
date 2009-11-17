@@ -1,0 +1,9 @@
+--- 
+layout: post
+title: My aspect-oriented Ruby library is being used in a Ph.D dissertation
+---
+I just received an e-mail from a Ph.D student informing me he intends to use Gazer, my self-described 'poor-man' aspect-oriented library, in his Ph.D dissertation.  He's made his "project public on GitHub":http://github.com/chastell/art-decomp.  According to the README, the project is "a library for symbolic functional decomposition of finite state machines, aimed at their implementation in field-programmable gate array devices."  Well, that's exciting.  
+
+This gives me a bit of drive to develop Gazer further.  I would love to implement advice history, such that the user would be able to cycle through and disable advice on individual objects at runtime.  
+
+

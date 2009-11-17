@@ -1,0 +1,7 @@
+--- 
+layout: post
+title: Never-ending Image Machine and Plotinus have been taken offline for now
+---
+I've taken these two experimental applications offline for the time being, since they were occupying a few too many megabytes of my server's memory.  
+
+If you're interested in either of these projects and want to collaborate toward their production deployment, let me know and we'll discuss the possibilities.

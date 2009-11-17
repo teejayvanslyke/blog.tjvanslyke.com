@@ -1,0 +1,13 @@
+--- 
+layout: post
+title: Presenting the Never-Ending Image Machine, an experiment in infinite scrolling
+---
+!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/12/Picture_2.png!:http://neverendingimagemachine.tjvanslyke.com
+
+I've been up late the last couple nights working on another weird conceptual website.  This one's called the "Never-Ending Image Machine":http://neverendingimagemachine.tjvanslyke.com.  From its About page:
+
+bq. the never-ending image machine's mission is to create the largest digital image ever created, one 128x128 square at a time. i want to create an online medium which restores a certain amount of mystique and chaos lost in indexed or tagged online experiences.
+
+bq. there are no rules for submission, but you're encouraged to craft your submissions such that they connect with others'. 
+
+I encourage you artsy types to contribute and give feedback!

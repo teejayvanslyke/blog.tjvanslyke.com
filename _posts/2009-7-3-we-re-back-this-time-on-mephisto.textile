@@ -1,0 +1,5 @@
+--- 
+layout: post
+title: We're back!  This time, on Mephisto!
+---
+Okay, so I got lazy and didn't blog much the last couple months.  I've been busy with client work and enjoying that big white-yellow ball of light hovering over the Portland sky.  Regardless, I've overhauled the blog portion of the site a bit.  http://blog.tjvanslyke.com is now powered by "Mephisto":http://www.mephistoblog.com.  

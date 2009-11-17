@@ -1,0 +1,11 @@
+--- 
+layout: post
+title: Software is a product.  Software development is a service.
+---
+Consider your piano instructor from primary school.  How would she respond to the question "How long will it take you to teach me the Flight of the Bumblebee?"  If she said it would take 100 lessons at $30 per lesson, would you engage her in confidence that her estimate were correct?  I wouldn't, and I'm sure she wouldn't be confident in her assessment.
+
+The teacher-student relationship is the closest we can truly get to a relationship equivalent to the consultant-client relationship in the software world.  Consultants, myself included, do not sell software.  We sell _our time developing your software_.  
+
+Now, that doesn't imply that all of our estimation tools are worthless.  We should (and I do) employ iterative planning techniques which provide visibilty into the state of a running project so that mission-critical decisions can be made at appropriate intervals.  Despite your piano instructor's uncertainty at Week 0 about your ability to learn Flight of the Bumblebee in 100 lessons, her confidence in her estimate would likely be substantially greater at Week 10; greater so at Week 50.
+
+Before you go making claims about what you or your company can or cannot do, ask yourself a simple question:  Is your client under the assumption that you're providing him/her with a _product_, or a _service_?

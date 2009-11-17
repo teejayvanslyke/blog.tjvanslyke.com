@@ -1,0 +1,35 @@
+--- 
+layout: post
+title: Deploying ActiveMessaging with Capistrano
+---
+Last week I deployed ActiveMessaging to an application for the purposes of offloading file uploads to S3.  I couldn't seem to find start/stop/restart Capistrano tasks for starting and stopping the polling service, so I decided to create my own.  Enjoy:
+
+{% highlight ruby %}
+namespace :active_messaging do
+  namespace :poller do
+    desc "Start the polling service"
+    task :start do
+      run "cd #{current_path} && RAILS_ENV=#{rails_env} script/poller start"
+    end
+
+    desc "Restart the polling service"
+    task :restart do
+      run "cd #{current_path} && RAILS_ENV=#{rails_env} script/poller restart"
+    end
+
+    desc "Stop the polling service"
+    task :stop do
+      run "cd #{current_path} && RAILS_ENV=#{rails_env} script/poller stop"
+    end
+  end
+end
+{% endhighlight %}
+
+You can hook the @active_messaging:poller:restart@ task before you touch @tmp/restart.txt@ (you are using "Passenger":http://www.modrails.com/, aren't you?):
+
+{% highlight ruby %}
+task :restart, :roles => :app, :except => { :no_release => true } do
+  active_messaging.poller.restart
+  run "touch #{current_path}/tmp/restart.txt"
+end
+{% endhighlight %}

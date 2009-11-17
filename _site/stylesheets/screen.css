@@ -1,0 +1,33 @@
+.created_at {
+  float: right;
+}
+a {
+  color: #666666;
+}
+a:hover {
+  color: #333333;
+}
+.highlight {
+  margin: 2em 0;
+}
+.post {
+  padding: 2em 0;
+}
+
+.post h4, .post .created_at {
+  margin-bottom: 0.5em;
+  font-size: 2.0em;
+}
+.post h4 a, .post .created_at {
+  text-decoration: none;
+  letter-spacing: -0.05em;
+}
+
+.post .text {
+  line-height: 1.5em;
+
+}
+
+#main {
+  padding: 0 2em;
+}

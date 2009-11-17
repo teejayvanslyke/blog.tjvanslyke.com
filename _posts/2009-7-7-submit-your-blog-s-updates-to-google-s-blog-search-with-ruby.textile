@@ -1,0 +1,22 @@
+--- 
+layout: post
+title: Submit your blog's updates to Google's Blog Search with Ruby
+---
+A client needed to be able to submit blogs to "Google Blog Search's Ping Service":http://blogsearch.google.com/ping automatically from within a Rails application, so I decided I'd write a quick Ruby wrapper and make it available to all of you shiny people:
+
+{% highlight bash %}
+$ sudo gem sources -a "http://gems.github.com"
+$ sudo gem install teejayvanslyke-google-blog-pinging-service 
+{% endhighlight %}
+
+The API is dead simple:
+
+{% highlight ruby %}
+GoogleBlogPingingService.ping("T.J. VanSlyke's Fantastic Blog", 
+  "http://blog.tjvanslyke.com")
+{% endhighlight %}
+
+The @ping@ method will return @true@ if Google accepted your submission; @false@ otherwise.
+
+Pull the source at the "GitHub repository":http://github.com/teejayvanslyke/google-blog-pinging-service/.
+

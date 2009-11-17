@@ -1,0 +1,33 @@
+--- 
+layout: post
+title: Social networks on Rails
+---
+!http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/27/friends.jpg!
+
+These days, everyone wants a social network.  I've received two RFP's only a few weeks apart from one another for custom social networking applications, and my fingers are quite tired of typing @has_many :friends, :class_name => 'User'@.  In order to allow me to rest my tired hands, I did a brief survey of the Rails-centric social networking solutions available.
+
+Note that I cannot take full credit for my findings.  "This post on Stack Overflow":http://stackoverflow.com/questions/48320/best-ruby-on-rails-social-networking-framework was very helpful in my pursuit.
+
+Without further ado, I present the three current big contenders:  "Lovd By Less":http://lovdbyless.com, "Insoshi":http://portal.insoshi.com, and "Community Engine":http://www.communityengine.org:
+
+h4. Lovd By Less
+
+Lovd By Less is the brainchild of "Less Everything":http://lesseverything.com.  It provides a baseline social networking application with support for friendships, advanced profile functionality, gravatars, user blogs, Flickr and YouTube integration, and more.  A look under the hood also reveals an impressively elegant permissions system with out-of-the-box support for extension via custom controllers.
+
+Unfortunately, Lovd's status as a Rails application means it cannot be (easily) integrated into an existing application.
+
+h4. Insoshi
+
+Insoshi was created by the author of "RailsSpace":http://railsspace.com, a tutorial for creating Rails social networking applications.  It too is a standalone Rails application to serve as a starting point for your custom social networking site, so it isn't really a choice if you need to integrate social networking capabilities into your existing application.
+
+Insoshi also has a dual license agreement.  Insoshi is licensed under the Affero GPL, so you'll need to distribute the source code to your users unless you cough up the commercial license fee.
+
+h4. Community Engine
+
+Community Engine takes a different approach to the social networking problem than Lovd or Insoshi.  Rather than provide a codebase from which you derive your application, Community Engine provides a Rails plugin which can even be integrated into existing applications.  
+
+Despite this, I found Community Engine to be unnecessarily bloated for my purposes.  What's more, the plugin uses Test::Unit for its test suite.  I'm just partial to RSpec, I guess.
+
+h4. The Verdict
+
+If I had to make a recommendation, Lovd By Less would win out for sure.  It took me fewer than 10 minutes to set up a working social networking site, and only a few more minutes to add custom functionality.  Its commercial-friendly BSD license means you're free to use it to create the next MySpace (but please don't).  

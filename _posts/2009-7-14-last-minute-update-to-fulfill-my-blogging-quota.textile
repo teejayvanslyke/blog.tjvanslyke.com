@@ -1,0 +1,10 @@
+--- 
+layout: post
+title: Last minute update to fulfill my blogging quota
+---
+* I've recently added some new features to "The Never-Ending Image Machine":http://neverendingimagemachine.tjvanslyke.com, but there are some issues creating new squares.  I've been adding support for click-through hyperlinks, as well as metadata popups to display information about the contributor.
+* I'm about to board a plane to Europe, so my updates will be sparse at best for the next few days.
+* "Haml 2.2":http://haml-lang.com/docs/yardoc/HAML_CHANGELOG.md.html was just released, with support for attribute pairs which read more like HTML.  I thought that's what we were trying to get away from!  In all seriousness, it does look like a great release.
+* Codeulate has a "review of Ruby Best Practices":http://codeulate.com/?p=26 which I picked up a couple weeks ago.  I share his adoration for the title.
+
+Okay, pre-boarding is about to start.  Tschüs!
