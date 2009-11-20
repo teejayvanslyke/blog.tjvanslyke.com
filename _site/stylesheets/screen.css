@@ -29,5 +29,13 @@ a:hover {
 }
 
 #main {
-  padding: 0 2em;
+  padding: 0 0 0 4em;
+}
+
+#sidebar {
+  padding: 2em 0;
+}
+
+#sidebar .block h3 {
+  font-size: 2.5em;
 }
