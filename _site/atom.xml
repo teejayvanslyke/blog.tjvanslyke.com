@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>T.J. VanSlyke - Blog</title>
+ <link href="http://blog.tjvanslyke.com/atom.xml" rel="self"/>
+ <link href="http://blog.tjvanslyke.com/"/>
+ <updated>2009-11-20T15:25:09-08:00</updated>
+ <id>http://blog.tjvanslyke.com/</id>
+ <author>
+   <name>T.J. VanSlyke</name>
+   <email>teejay.vanslyke@gmail.com</email>
+ </author>
+ 
+ 
+ <entry>
+   <title>Aggregate statistics for delayed_job with delayed_job_stats</title>
+   <link href="http://blog.tjvanslyke.com/2009/10/22/aggregate-statistics-for-delayed_job-with-delayed_job_stats.html"/>
+   <updated>2009-10-22T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/10/22/aggregate-statistics-for-delayed_job-with-delayed_job_stats</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve recently found myself frustrated at the lack of immediate visibility with &lt;a href=&quot;http://github.com/tobi/delayed_job&quot;&gt;delayed_job&lt;/a&gt;.  After hunting around online for an existing solution, I bit the bullet and created a plugin called &lt;a href=&quot;http://github.com/teejayvanslyke/delayed_job_stats&quot;&gt;delayed_job_stats&lt;/a&gt; to provide me with some useful statistics about delayed_job via Rake and Capistrano:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;no&quot;&gt;Jobs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;803&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Jobs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;       &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Jobs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Workers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Take a look at the &lt;span class=&quot;caps&quot;&gt;README&lt;/span&gt; at the project&amp;#8217;s &lt;a href=&quot;http://github.com/teejayvanslyke/delayed_job_stats&quot;&gt;GitHub repository&lt;/a&gt; for instructions.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Deploying ActiveMessaging with Capistrano</title>
+   <link href="http://blog.tjvanslyke.com/2009/09/14/deploying-activemessaging-with-capistrano.html"/>
+   <updated>2009-09-14T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/09/14/deploying-activemessaging-with-capistrano</id>
+   <content type="html">&lt;p&gt;Last week I deployed ActiveMessaging to an application for the purposes of offloading file uploads to S3.  I couldn&amp;#8217;t seem to find start/stop/restart Capistrano tasks for starting and stopping the polling service, so I decided to create my own.  Enjoy:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:active_messaging&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:poller&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Start the polling service&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:start&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;cd &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; RAILS_ENV=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rails_env&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; script/poller start&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Restart the polling service&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:restart&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;cd &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; RAILS_ENV=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rails_env&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; script/poller restart&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Stop the polling service&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:stop&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;cd &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; RAILS_ENV=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rails_env&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; script/poller stop&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;You can hook the &lt;code&gt;active_messaging:poller:restart&lt;/code&gt; task before you touch &lt;code&gt;tmp/restart.txt&lt;/code&gt; (you are using &lt;a href=&quot;http://www.modrails.com/&quot;&gt;Passenger&lt;/a&gt;, aren&amp;#8217;t you?):&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:restart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:roles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:except&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:no_release&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;active_messaging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;poller&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;touch &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_path&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/tmp/restart.txt&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Never-ending Image Machine and Plotinus have been taken offline for now</title>
+   <link href="http://blog.tjvanslyke.com/2009/09/13/never-ending-image-machine-and-plotinus-have-been-taken-offline-for-now.html"/>
+   <updated>2009-09-13T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/09/13/never-ending-image-machine-and-plotinus-have-been-taken-offline-for-now</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve taken these two experimental applications offline for the time being, since they were occupying a few too many megabytes of my server&amp;#8217;s memory.&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;re interested in either of these projects and want to collaborate toward their production deployment, let me know and we&amp;#8217;ll discuss the possibilities.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>My aspect-oriented Ruby library is being used in a Ph.D dissertation</title>
+   <link href="http://blog.tjvanslyke.com/2009/09/13/my-aspect-oriented-ruby-library-is-being-used-in-a-ph-d-dissertation.html"/>
+   <updated>2009-09-13T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/09/13/my-aspect-oriented-ruby-library-is-being-used-in-a-ph-d-dissertation</id>
+   <content type="html">&lt;p&gt;I just received an e-mail from a Ph.D student informing me he intends to use Gazer, my self-described &amp;#8216;poor-man&amp;#8217; aspect-oriented library, in his Ph.D dissertation.  He&amp;#8217;s made his &lt;a href=&quot;http://github.com/chastell/art-decomp&quot;&gt;project public on GitHub&lt;/a&gt;.  According to the &lt;span class=&quot;caps&quot;&gt;README&lt;/span&gt;, the project is &amp;#8220;a library for symbolic functional decomposition of finite state machines, aimed at their implementation in field-programmable gate array devices.&amp;#8221;  Well, that&amp;#8217;s exciting.&lt;/p&gt;
+&lt;p&gt;This gives me a bit of drive to develop Gazer further.  I would love to implement advice history, such that the user would be able to cycle through and disable advice on individual objects at runtime.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Hooking librsync from a Ruby C extension</title>
+   <link href="http://blog.tjvanslyke.com/2009/08/21/hooking-librsync-from-a-ruby-c-extension.html"/>
+   <updated>2009-08-21T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/08/21/hooking-librsync-from-a-ruby-c-extension</id>
+   <content type="html">&lt;p&gt;Despite how straightforward the solution was, I had difficulty getting the Makefile generated by &lt;code&gt;extconf.rb&lt;/code&gt; to properly include and link librsync.  Here&amp;#8217;s what I had to do in my &lt;code&gt;extconf.rb&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;extension_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;my-ruby-thingy&amp;#39;&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;find_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;librsync.h&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/usr/local/include&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;find_library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;rsync&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/usr/local/lib&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;create_makefile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extension_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;                              
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Turns out if you supply &lt;code&gt;find_library&lt;/code&gt; with a &lt;code&gt;nil&lt;/code&gt; second argument, it looks for &lt;code&gt;main()&lt;/code&gt;, which succeeds.  If you&amp;#8217;re running a MacPorts version of librsync, you&amp;#8217;ll likely need to append additional search paths (&lt;code&gt;/opt/local/include&lt;/code&gt; and &lt;code&gt;/opt/local/lib&lt;/code&gt;, most likely).&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Social networks on Rails</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/27/social-networks-on-rails.html"/>
+   <updated>2009-07-27T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/27/social-networks-on-rails</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/27/friends.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;These days, everyone wants a social network.  I&amp;#8217;ve received two RFP&amp;#8217;s only a few weeks apart from one another for custom social networking applications, and my fingers are quite tired of typing &lt;code&gt;has_many :friends, :class_name =&amp;gt; 'User'&lt;/code&gt;.  In order to allow me to rest my tired hands, I did a brief survey of the Rails-centric social networking solutions available.&lt;/p&gt;
+&lt;p&gt;Note that I cannot take full credit for my findings.  &lt;a href=&quot;http://stackoverflow.com/questions/48320/best-ruby-on-rails-social-networking-framework&quot;&gt;This post on Stack Overflow&lt;/a&gt; was very helpful in my pursuit.&lt;/p&gt;
+&lt;p&gt;Without further ado, I present the three current big contenders:  &lt;a href=&quot;http://lovdbyless.com&quot;&gt;Lovd By Less&lt;/a&gt;, &lt;a href=&quot;http://portal.insoshi.com&quot;&gt;Insoshi&lt;/a&gt;, and &lt;a href=&quot;http://www.communityengine.org&quot;&gt;Community Engine&lt;/a&gt;:&lt;/p&gt;
+&lt;h4&gt;Lovd By Less&lt;/h4&gt;
+&lt;p&gt;Lovd By Less is the brainchild of &lt;a href=&quot;http://lesseverything.com&quot;&gt;Less Everything&lt;/a&gt;.  It provides a baseline social networking application with support for friendships, advanced profile functionality, gravatars, user blogs, Flickr and YouTube integration, and more.  A look under the hood also reveals an impressively elegant permissions system with out-of-the-box support for extension via custom controllers.&lt;/p&gt;
+&lt;p&gt;Unfortunately, Lovd&amp;#8217;s status as a Rails application means it cannot be (easily) integrated into an existing application.&lt;/p&gt;
+&lt;h4&gt;Insoshi&lt;/h4&gt;
+&lt;p&gt;Insoshi was created by the author of &lt;a href=&quot;http://railsspace.com&quot;&gt;RailsSpace&lt;/a&gt;, a tutorial for creating Rails social networking applications.  It too is a standalone Rails application to serve as a starting point for your custom social networking site, so it isn&amp;#8217;t really a choice if you need to integrate social networking capabilities into your existing application.&lt;/p&gt;
+&lt;p&gt;Insoshi also has a dual license agreement.  Insoshi is licensed under the Affero &lt;span class=&quot;caps&quot;&gt;GPL&lt;/span&gt;, so you&amp;#8217;ll need to distribute the source code to your users unless you cough up the commercial license fee.&lt;/p&gt;
+&lt;h4&gt;Community Engine&lt;/h4&gt;
+&lt;p&gt;Community Engine takes a different approach to the social networking problem than Lovd or Insoshi.  Rather than provide a codebase from which you derive your application, Community Engine provides a Rails plugin which can even be integrated into existing applications.&lt;/p&gt;
+&lt;p&gt;Despite this, I found Community Engine to be unnecessarily bloated for my purposes.  What&amp;#8217;s more, the plugin uses Test::Unit for its test suite.  I&amp;#8217;m just partial to RSpec, I guess.&lt;/p&gt;
+&lt;h4&gt;The Verdict&lt;/h4&gt;
+&lt;p&gt;If I had to make a recommendation, Lovd By Less would win out for sure.  It took me fewer than 10 minutes to set up a working social networking site, and only a few more minutes to add custom functionality.  Its commercial-friendly &lt;span class=&quot;caps&quot;&gt;BSD&lt;/span&gt; license means you&amp;#8217;re free to use it to create the next MySpace (but please don&amp;#8217;t).&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Last minute update to fulfill my blogging quota</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/14/last-minute-update-to-fulfill-my-blogging-quota.html"/>
+   <updated>2009-07-14T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/14/last-minute-update-to-fulfill-my-blogging-quota</id>
+   <content type="html">&lt;ul&gt;
+	&lt;li&gt;I&amp;#8217;ve recently added some new features to &lt;a href=&quot;http://neverendingimagemachine.tjvanslyke.com&quot;&gt;The Never-Ending Image Machine&lt;/a&gt;, but there are some issues creating new squares.  I&amp;#8217;ve been adding support for click-through hyperlinks, as well as metadata popups to display information about the contributor.&lt;/li&gt;
+	&lt;li&gt;I&amp;#8217;m about to board a plane to Europe, so my updates will be sparse at best for the next few days.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://haml-lang.com/docs/yardoc/HAML_CHANGELOG.md.html&quot;&gt;Haml 2.2&lt;/a&gt; was just released, with support for attribute pairs which read more like &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;.  I thought that&amp;#8217;s what we were trying to get away from!  In all seriousness, it does look like a great release.&lt;/li&gt;
+	&lt;li&gt;Codeulate has a &lt;a href=&quot;http://codeulate.com/?p=26&quot;&gt;review of Ruby Best Practices&lt;/a&gt; which I picked up a couple weeks ago.  I share his adoration for the title.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Okay, pre-boarding is about to start.  Tschüs!&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Presenting the Never-Ending Image Machine, an experiment in infinite scrolling</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/12/presenting-the-never-ending-image-machine-an-experiment-in-infinite-scrolling.html"/>
+   <updated>2009-07-12T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/12/presenting-the-never-ending-image-machine-an-experiment-in-infinite-scrolling</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://neverendingimagemachine.tjvanslyke.com&quot;&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/12/Picture_2.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ve been up late the last couple nights working on another weird conceptual website.  This one&amp;#8217;s called the &lt;a href=&quot;http://neverendingimagemachine.tjvanslyke.com&quot;&gt;Never-Ending Image Machine&lt;/a&gt;.  From its About page:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;the never-ending image machine&amp;#8217;s mission is to create the largest digital image ever created, one 128&amp;#215;128 square at a time. i want to create an online medium which restores a certain amount of mystique and chaos lost in indexed or tagged online experiences.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;there are no rules for submission, but you&amp;#8217;re encouraged to craft your submissions such that they connect with others&amp;#8217;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I encourage you artsy types to contribute and give feedback!&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Applying GTD to BDD</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/09/applying-gtd-to-bdd.html"/>
+   <updated>2009-07-09T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/09/applying-gtd-to-bdd</id>
+   <content type="html">&lt;h4&gt;Collect&lt;/h4&gt;
+&lt;p&gt;Until recently I found myself writing single &lt;code&gt;describe&lt;/code&gt; and &lt;code&gt;it&lt;/code&gt; blocks, making them pass, and repeating the process.  While this can work just fine for simple classes where you can picture the implementation before writing it, this method leaves gaps in your understanding of larger, more complex classes and modules.  To ensure you&amp;#8217;ve captured &lt;em&gt;all&lt;/em&gt; of a class&amp;#8217;s behavior, go through a brainstorming exercise to holistically evaluate the behavior of a class from the top down.  First, establish some contexts for which there will be differing behavior:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Airplane&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When in the air&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When on the ground&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- After landing&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- Before takeoff&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When spiraling toward imminent death&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Continue to scribble down all of the possible contexts in which your class or module will exhibit different behavior.  Don&amp;#8217;t hesitate to include anything and everything, as we&amp;#8217;ll prune and organize your thoughts soon.&lt;/p&gt;
+&lt;p&gt;Our next step is to continue drilling down into the individual behaviors across each context.  Again, don&amp;#8217;t be shy about including everything on your mind:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Airplane&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When in the air&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should be flying&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should not be on the ground&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have a pilot&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have a copilot&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have payload&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;You might encounter scenarios in your mind wherein additional contexts are required.  This is a good time to adjust your contexts so implementation becomes a matter of working through your spec like a checklist.  You may also encounter scenarios where a sub-context is required.  For example, we might want to allow the plane to have no passengers if the pilot is in training:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Airplane&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When in the air&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should be flying&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should not be on the ground&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have a pilot&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have a copilot&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;and the pilot is in training&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have no payload&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;and the pilot is not in training&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have payload&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;h4&gt;Process&lt;/h4&gt;
+&lt;p&gt;Now that we&amp;#8217;ve exhausted our imaginations of all the possible behaviors for our class, it&amp;#8217;s time to begin &lt;strong&gt;processing&lt;/strong&gt; them so we know which can be implemented and which might require more attention.  Go down your behavior tree item by item and evaluate whether the behavior you&amp;#8217;ve described fits within the product owner&amp;#8217;s expectation for the user story to which this class or module belongs.  If you&amp;#8217;re unsure, add a &lt;code&gt;pending&lt;/code&gt; tag with a note:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Airplane&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;- When in the air&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;should have a copilot&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;pending&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;We&amp;#39;re waiting on a specification from the PO -- he never told us whether planes can be run by a single pilot.&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;By doing this, you&amp;#8217;ve kept your uncertainty logged in the codebase in such a way it will be seen &lt;em&gt;every&lt;/em&gt; time you run your test suite.  This than adding a &lt;code&gt;REVIEW&lt;/code&gt; or &lt;code&gt;TODO&lt;/code&gt; item in your production code, since the addendum will be linked to a behavior rather than implementation.&lt;/p&gt;
+&lt;p&gt;Next, evaluate whether any of the behaviors can be done away with entirely.  Have a colleague look over your specification and I&amp;#8217;m sure you&amp;#8217;ll find a few points of disagreement.&lt;/p&gt;
+&lt;p&gt;After coming to agreement about the class&amp;#8217;s behaviors, go ahead and delegate the decision making on your pending items to your product owner.&lt;/p&gt;
+&lt;h4&gt;Organize&lt;/h4&gt;
+&lt;p&gt;Now that you&amp;#8217;ve processed each behavior and determined whether it can and should be implemented, we can begin the process of reorganizing and polishing our context tree to ensure it is readable and maintainable by whomever might have the pleasure of maintaining your code in the future.  In RSpec, specdoc is your secret weapon:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;spec airplane_spec.rb -fs
+
+Airplane - When in the air
+- should be flying &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: Not Yet Implemented&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+- should not be on the ground &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: Not Yet Implemented&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+- should have a pilot &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: Not Yet Implemented&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+- should have a copilot &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: We&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;re waiting on a specification from the PO -- he never told us whether planes can be run by a single pilot.&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Airplane - When in the air and the pilot is in training
+- should have no payload &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: Not Yet Implemented&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+Airplane - When in the air and the pilot is not in training
+- should have payload &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;PENDING: Not Yet Implemented&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+...
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Ask yourself the following questions:&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;Do each of the contexts and behaviors read like English?&lt;/li&gt;
+	&lt;li&gt;Can you derive a &lt;em&gt;reason&lt;/em&gt; for implementing each behavior, or is the specific reason noted in the behavior?&lt;/li&gt;
+	&lt;li&gt;Would you feel confident handing the specdoc output to your PO for review?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Amend your behavior descriptions until you can answer &amp;#8216;yes&amp;#8217; to these three questions with confidence.&lt;/p&gt;
+&lt;h4&gt;Review&lt;/h4&gt;
+&lt;p&gt;In nearly every team I&amp;#8217;ve worked with, this tends to be the most overlooked of all five principles in &lt;span class=&quot;caps&quot;&gt;GTD&lt;/span&gt;.  Once per week, you and/or your team should take the time to review the following buckets of items:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Pending RSpec examples&lt;/li&gt;
+	&lt;li&gt;Items flagged by &lt;code&gt;rake notes&lt;/code&gt; (&lt;code&gt;TODO&lt;/code&gt;, &lt;code&gt;FIXME&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Time box your effort to an hour or two, and ensure that each item is resolved, either immediately, or with a followup action.&lt;/p&gt;
+&lt;h4&gt;Do&lt;/h4&gt;
+&lt;p&gt;You&amp;#8217;ve deliberated on the most effective way to move forward with your implementation.  You&amp;#8217;ve constructed a well-tailored checklist of behaviors to be implemented, and can now say with confidence that the behaviors described match your requirements.  March on valiantly and implement them!  I&amp;#8217;ll leave this step to you, fine readers.&lt;/p&gt;
+&lt;p&gt;No matter your &lt;span class=&quot;caps&quot;&gt;BDD&lt;/span&gt; experience level, I hope this provides you with a useful framework through which to conduct your day-to-day development activities.  Stay focused, review often, and most of all, have fun.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Polymorphic select tags in Rails</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/08/polymorphic-select-tags-in-rails.html"/>
+   <updated>2009-07-08T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/08/polymorphic-select-tags-in-rails</id>
+   <content type="html">&lt;p&gt;A client recently needed to be able to select items of different types from a select box and have both the selected item&amp;#8217;s ID and type propagate through the form&amp;#8217;s &lt;span class=&quot;caps&quot;&gt;POST&lt;/span&gt; request.  Rails makes polymorphism as easy as it can, but select boxes are one place its support could use a bit of work.&lt;/p&gt;
+&lt;p&gt;My solution was a helper called &lt;code&gt;polymorphic_select_tag&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;polymorphic_select_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option_array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;html_options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;option_tags&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;option_array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;content_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+
+    &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;               &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;object_id&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;downcase&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;select_tag_id&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;__&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_select_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;__&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hidden_type_field_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_type_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hidden_id_field_id&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id_&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;onchange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(&amp;#39;#&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hidden_id_field_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;#39;).val($(&amp;#39;#&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_tag_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;#39;).val().split(&amp;#39;-&amp;#39;)[1]);&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+               &lt;span class=&quot;s2&quot;&gt;&amp;quot;$(&amp;#39;#&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hidden_type_field_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;#39;).val($(&amp;#39;#&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_tag_id&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;#39;).val().split(&amp;#39;-&amp;#39;)[0]);&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;hidden_field_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_type]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hidden_type_field_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hidden_field_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;object_type&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_id]&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;   &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hidden_id_field_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;select_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_tag_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option_tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+               &lt;span class=&quot;n&quot;&gt;html_options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:onchange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;onchange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Yes, it&amp;#8217;s messy.  If you gemified it and cleaned it up I&amp;#8217;d be grateful.  But I digress.  For demonstration, let&amp;#8217;s say we have models &lt;code&gt;Car&lt;/code&gt; and &lt;code&gt;Truck&lt;/code&gt;.  Our model &lt;code&gt;Driver&lt;/code&gt; needs to be able to set the field &lt;code&gt;vehicle&lt;/code&gt; and choose from the list.  &lt;code&gt;polymorphic_select_tag&lt;/code&gt; could be called as such:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;polymorphic_select_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:vehicle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Big Rig&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Truck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Cadillac&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Car&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Note that, like a regular select options array, we use a tuple syntax, except here we&amp;#8217;ve nested the second element in each tuple with the type and the ID.  You&amp;#8217;ll need to write a separate helper to generate this from your models, but &lt;code&gt;polymorphic_select_tag&lt;/code&gt; will take care of the rest.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Submit your blog's updates to Google's Blog Search with Ruby</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/07/submit-your-blog-s-updates-to-google-s-blog-search-with-ruby.html"/>
+   <updated>2009-07-07T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/07/submit-your-blog-s-updates-to-google-s-blog-search-with-ruby</id>
+   <content type="html">&lt;p&gt;A client needed to be able to submit blogs to &lt;a href=&quot;http://blogsearch.google.com/ping&quot;&gt;Google Blog Search&amp;#8217;s Ping Service&lt;/a&gt; automatically from within a Rails application, so I decided I&amp;#8217;d write a quick Ruby wrapper and make it available to all of you shiny people:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo gem sources -a &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://gems.github.com&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo gem install teejayvanslyke-google-blog-pinging-service 
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;The &lt;span class=&quot;caps&quot;&gt;API&lt;/span&gt; is dead simple:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;no&quot;&gt;GoogleBlogPingingService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ping&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;T.J. VanSlyke&amp;#39;s Fantastic Blog&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+  &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://blog.tjvanslyke.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;The &lt;code&gt;ping&lt;/code&gt; method will return &lt;code&gt;true&lt;/code&gt; if Google accepted your submission; &lt;code&gt;false&lt;/code&gt; otherwise.&lt;/p&gt;
+&lt;p&gt;Pull the source at the &lt;a href=&quot;http://github.com/teejayvanslyke/google-blog-pinging-service/&quot;&gt;GitHub repository&lt;/a&gt;.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>My nomadic web worker toolbelt</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/05/my-nomadic-web-worker-toolbelt.html"/>
+   <updated>2009-07-05T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/05/my-nomadic-web-worker-toolbelt</id>
+   <content type="html">&lt;h4&gt;Virtual tools&lt;/h4&gt;
+&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/logo-bs_white.png&quot; title=&quot;Blinksale&quot; alt=&quot;Blinksale&quot; /&gt;&lt;/td&gt;
+		&lt;td&gt;&lt;strong&gt;&lt;a href=&quot;http://www.blinksale.com&quot;&gt;Blinksale&lt;/a&gt;&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;I use Blinksale as a way to log my hours during my workday as well as send invoices and keep track of my business income.  Its SaaS approach to invoicing makes it very attractive for backing up my critical financial data.  Their pricing is reasonable, too.&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/pivotaltracker_thumb.png&quot; title=&quot;Pivotal Tracker&quot; alt=&quot;Pivotal Tracker&quot; /&gt;&lt;/td&gt;
+		&lt;td&gt;&lt;strong&gt;&lt;a href=&quot;http://www.pivotaltracker.com&quot;&gt;Pivotal Tracker&lt;/a&gt;&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;Some call it the iPod of bug tracking tools.  I employ it because it understands and applies agile methodologies in a clean manner.  What&amp;#8217;s more, it&amp;#8217;s free and well-maintained.  If you&amp;#8217;re managing multiple projects and need a way to keep all of your project details in a well-organized dashboard, Pivotal will keep you and your clients happy.&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/5/omnifocus-screenshot-5_thumb.png&quot; title=&quot;OmniFocus&quot; alt=&quot;OmniFocus&quot; /&gt;&lt;/td&gt;
+		&lt;td&gt;&lt;strong&gt;&lt;a href=&quot;http://www.omnigroup.com/applications/omnifocus/&quot;&gt;OmniFocus&lt;/a&gt;&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;Ever since I read David Allen&amp;#8217;s Getting Things Done and started using his personal organizational practices in my own life, I&amp;#8217;ve been trying different implementations of the context-project-based task management he suggests.  OmniFocus definitely comes closest to recreating Allen&amp;#8217;s vision for a single collection node for your tasks.  If you&amp;#8217;re a Mac user, I highly recommend it.&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h4&gt;Durables&lt;/h4&gt;
+&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;strong&gt;Bicycle&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;This is indispensable for those frustrating days where you just want to ride off into the sunset to forget the ten hours you spent debugging one JavaScript error in Internet Explorer.  For the technomad, bicycles are the ideal mode of transportation.  Our otherwise sedentary lifestyles require us to compensate for our physical activity in other ways.&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;strong&gt;Water bottle&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;If you like to ride to the far reaches of town for that cafe on the outskirts in the morning like I do, you&amp;#8217;ll want to stay hydrated.  Plus, water is good for your well-being, and will certainly make you more productive.&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;strong&gt;Index cards&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;Okay, so maybe I &lt;em&gt;do&lt;/em&gt; still write on real paper.  Sometimes the best way to think through a problem is to have a means of doodling.  I carry index cards in my backpack alongside my MacBook Pro.&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;&lt;strong&gt;Long battery life&lt;/strong&gt;&lt;/td&gt;
+		&lt;td&gt;I just bought one of the new MacBook Pros with the 7-8 hour battery (although it&amp;#8217;s actually more like 5-6 hours).  There&amp;#8217;s nothing more fufilling than sitting outside on a picnic table drinking coffee and earning your living doing it.  Stay mobile and bring the extra battery.&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;That&amp;#8217;s how I manage my freelancing lifestyle.  What tools do you use to manage yours?&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Software is a product.  Software development is a service.</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/04/software-is-a-product-software-development-is-a-service.html"/>
+   <updated>2009-07-04T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/04/software-is-a-product-software-development-is-a-service</id>
+   <content type="html">&lt;p&gt;Consider your piano instructor from primary school.  How would she respond to the question &amp;#8220;How long will it take you to teach me the Flight of the Bumblebee?&amp;#8221;  If she said it would take 100 lessons at $30 per lesson, would you engage her in confidence that her estimate were correct?  I wouldn&amp;#8217;t, and I&amp;#8217;m sure she wouldn&amp;#8217;t be confident in her assessment.&lt;/p&gt;
+&lt;p&gt;The teacher-student relationship is the closest we can truly get to a relationship equivalent to the consultant-client relationship in the software world.  Consultants, myself included, do not sell software.  We sell &lt;em&gt;our time developing your software&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Now, that doesn&amp;#8217;t imply that all of our estimation tools are worthless.  We should (and I do) employ iterative planning techniques which provide visibilty into the state of a running project so that mission-critical decisions can be made at appropriate intervals.  Despite your piano instructor&amp;#8217;s uncertainty at Week 0 about your ability to learn Flight of the Bumblebee in 100 lessons, her confidence in her estimate would likely be substantially greater at Week 10; greater so at Week 50.&lt;/p&gt;
+&lt;p&gt;Before you go making claims about what you or your company can or cannot do, ask yourself a simple question:  Is your client under the assumption that you&amp;#8217;re providing him/her with a &lt;em&gt;product&lt;/em&gt;, or a &lt;em&gt;service&lt;/em&gt;?&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Plotinus:  An experiment in semantic triples</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/04/plotinus-an-experiment-in-semantic-triples.html"/>
+   <updated>2009-07-04T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/04/plotinus-an-experiment-in-semantic-triples</id>
+   <content type="html">&lt;p&gt;And that&amp;#8217;s what I&amp;#8217;ve started to do with &lt;a href=&quot;http://www.plotinus.net&quot;&gt;Plotinus&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.tjvanslyke.com/assets/blog.tjvanslyke.com/2009/7/4/Picture_5.png&quot; title=&quot;Plotinus&quot; alt=&quot;Plotinus&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Enter a noun phrase into the &amp;#8216;Subject&amp;#8217; field.  At the time of this writing, there are very few entries, so you may have to try &amp;#8216;Portland&amp;#8217; if you want to see it in action.  As soon as Plotinus finds a match, it will display all of the possible triples which match your input thusfar.&lt;/p&gt;
+&lt;p&gt;If you enter a statement which you know to be true which yields no results, Plotinus will prompt you to add the triple to its database.&lt;/p&gt;
+&lt;p&gt;The project is in extreme infancy at the moment.  I&amp;#8217;d like to eventually expand it to include pages for each individual triple with a section for discussion and citations.&lt;/p&gt;
+&lt;p&gt;Hey academics, what do you think? &lt;a href=&quot;http://www.plotinus.net&quot;&gt;(link)&lt;/a&gt;&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Installing RMagick on Ubuntu without pulling your hair out</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/04/installing-rmagick-on-ubuntu-without-pulling-your-hair-out.html"/>
+   <updated>2009-07-04T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/04/installing-rmagick-on-ubuntu-without-pulling-your-hair-out</id>
+   <content type="html">&lt;p&gt;&lt;code&gt;apt-get&lt;/code&gt; is great for 99% of installation scenarios, but sometimes it just doesn&amp;#8217;t cut it for installing development headers.  Take a look at the output from running &lt;code&gt;sudo gem install rmagick&lt;/code&gt; after installing ImageMagick from &lt;code&gt;apt-get&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;ERROR:  Error installing rmagick:
+	ERROR: Failed to build gem native extension.
+
+/usr/bin/ruby1.8 extconf.rb install rmagick
+checking &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Ruby version &amp;gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1.8.5... yes
+checking &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cc... yes
+checking &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Magick-config... no
+Can&lt;span class=&quot;s1&quot;&gt;&amp;#39;t install RMagick 2.10.0. Can&amp;#39;&lt;/span&gt;t find Magick-config in /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/X11R6/bin
+
+*** extconf.rb failed ***
+Could not create Makefile due to some reason, probably lack of
+necessary libraries and/or headers.  Check the mkmf.log file &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;more
+details.  You may need configuration options.
+
+Provided configuration options:
+	--with-opt-dir
+	--without-opt-dir
+	--with-opt-include
+	--without-opt-include&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;opt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-dir&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/include
+	--with-opt-lib
+	--without-opt-lib&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;opt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-dir&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/lib
+	--with-make-prog
+	--without-make-prog
+	--srcdir&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;.
+	--curdir
+	--ruby&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/bin/ruby1.8
+
+
+Gem files will remain installed in /usr/lib/ruby/gems/1.8/gems/rmagick-2.10.0 &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;inspection.
+Results logged to /usr/lib/ruby/gems/1.8/gems/rmagick-2.10.0/ext/RMagick/gem_make.out
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;As it turns out, we can simplify our lives by complicating it and actually &lt;em&gt;compiling the thing from source&lt;/em&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget ftp://ftp.fifi.org/pub/ImageMagick/ImageMagick-6.5.4-2.tar.gz 
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tar xvzf ImageMagick-6.5.4-2.tar.gz 
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;ImageMagick-6.5.4-2
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./configure
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo make install
+&lt;/pre&gt;
+&lt;/div&gt;&lt;p&gt;Finally, RMagick will find the headers!&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo gem install rmagick
+Building native extensions.  This could take a &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;...
+Successfully installed rmagick-2.10.0
+1 gem installed
+Installing ri documentation &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;rmagick-2.10.0...
+&lt;/pre&gt;
+&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Four signs of poorly implemented Agile™</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/04/four-signs-of-poorly-implemented-agile-tm.html"/>
+   <updated>2009-07-04T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/04/four-signs-of-poorly-implemented-agile-tm</id>
+   <content type="html">&lt;ol&gt;
+	&lt;li&gt;Retrospectives without timeboxes. Programmers love to talk about their feelings &amp;#8212; so much so that we block off a couple hours per iteration to tell each other how we really feel. However, we often blab on far too long without accumulating those precious action items which steer our development efforts toward our goals. Time box every retrospective and assign a clock czar to keep the meeting on track. You&amp;#8217;ll be glad you did.&lt;/li&gt;
+	&lt;li&gt;100% test coverage for the sake of the number. Many teams will keep track of their total test coverage using a tool like RCov. While the statistics these tools provide can offer insight into untested areas of your codebase, they should not be taken as a hard and fast &amp;#8216;&lt;span class=&quot;caps&quot;&gt;YES&lt;/span&gt;&amp;#8217; or &amp;#8216;NO&amp;#8217; to the question, &amp;#8220;Do we have ample test coverage?&amp;#8221;. In the case of RCov, these statistics only report whether or not lines have been executed by test code. Take a pragmatic approach to test coverage and realize that your tests should both cover the breadth of your code base and cover all code paths in a human-readable, expressive manner.&lt;/li&gt;
+	&lt;li&gt;No requirements necessary. We&amp;#8217;re agile. I&amp;#8217;ve led projects where, in retrospect, I&amp;#8217;ve found myself guilty of understating the requirements to my team. Despite our tendency to throw away formal requirements along with waterfall methodology, we cannot forget the value added with clear, concise requirement documentation. Your team and all stakeholders should be comfortable with your issue tracking system. You should have no more than one place for storing your user stories and defects. They should be specified in a manner such that any developer on your team can start working without needing further clarification from the product owner.&lt;/li&gt;
+	&lt;li&gt;Stakeholder underinvolvement. We tend to have high expectations when we spend hundreds of thousands of dollars (or more) on a product. The idea that we might need to participate in our product&amp;#8217;s development sounds a bit like being expected to assist the chef at a five-star restaurant. As with any collaborative creative process, software development requires its stakeholders to be as involved as the development team. This means being prepared for planning meetings with groomed backlog stories ready for consumption by the development team. It also means having adept technical writing skills &amp;#8212; or an assistant who does.&lt;/li&gt;
+&lt;/ol&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Capistrano with multiple servers running on Ruby 1.8.7p111</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/04/capistrano-with-multiple-servers-running-on-ruby-1-8-7p111.html"/>
+   <updated>2009-07-04T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/04/capistrano-with-multiple-servers-running-on-ruby-1-8-7p111</id>
+   <content type="html">&lt;p&gt;If you&amp;#8217;re like me, you run the latest Ruby from MacPorts.  Capistrano has a strange bug where the entire process hangs while attempting to initiate connections to multiple servers asynchronously.  According to a post by Sean on the &lt;a href=&quot;https://capistrano.lighthouseapp.com/projects/8716/tickets/79-capistrano-hangs-on-shell-command-for-many-computers-on-ruby-186-p368&quot;&gt;bug report&lt;/a&gt;, this is due to a difference in the thread implementation in 1.8.7.  In any case, I&amp;#8217;ve applied the patch he recommends within a &lt;a href=&quot;http://github.com/teejayvanslyke/capistrano/&quot;&gt;fork of Capistrano&lt;/a&gt; on &lt;a href=&quot;http://github.com/teejayvanslyke/&quot;&gt;my GitHub account&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let me know if it comes in handy, or if you have any news regarding the bug.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>We're back!  This time, on Mephisto!</title>
+   <link href="http://blog.tjvanslyke.com/2009/07/03/we-re-back-this-time-on-mephisto.html"/>
+   <updated>2009-07-03T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/07/03/we-re-back-this-time-on-mephisto</id>
+   <content type="html">&lt;p&gt;Okay, so I got lazy and didn&amp;#8217;t blog much the last couple months.  I&amp;#8217;ve been busy with client work and enjoying that big white-yellow ball of light hovering over the Portland sky.  Regardless, I&amp;#8217;ve overhauled the blog portion of the site a bit.  http://blog.tjvanslyke.com is now powered by &lt;a href=&quot;http://www.mephistoblog.com&quot;&gt;Mephisto&lt;/a&gt;.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>My shining face in the Oregonian</title>
+   <link href="http://blog.tjvanslyke.com/2009/06/21/my-shining-face-in-the-oregonian.html"/>
+   <updated>2009-06-21T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/06/21/my-shining-face-in-the-oregonian</id>
+   <content type="html">&lt;p&gt;Today&amp;#8217;s print edition of the Oregonian features an article entitled &amp;#8220;[Tech Entrepreneurs Defy Recession](http://www.oregonlive.com/business/index.ssf/2009/05/tech_entrepreneurs_defy_recess.html)&amp;#8221;, examining the burgeoning technology and startup scene here in Portland, Oregon.  Part of their coverage included a trip to Portland&amp;#8217;s [Beer and Blog](http://portland.beerandblog.com &amp;#8220;Portland Beer and Blog&amp;#8221;), at which I was present:&lt;/p&gt;
+&lt;p&gt;![Meeting some fellow &lt;span class=&quot;caps&quot;&gt;PDX&lt;/span&gt; geeks](http://blog.oregonlive.com/business_impact/2009/05/large_Beerandblogcropped.jpg &amp;#8220;Meeting some fellow &lt;span class=&quot;caps&quot;&gt;PDX&lt;/span&gt; geeks&amp;#8221;)&lt;/p&gt;</content>
+ </entry>
+ 
+ 
+</feed>
