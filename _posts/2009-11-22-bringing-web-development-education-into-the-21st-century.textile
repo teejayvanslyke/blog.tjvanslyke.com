@@ -1,0 +1,15 @@
+---
+layout: post
+title: Bringing Web Development Education into the 21st Century
+---
+
+I've been out of academics for the past three years.  Perhaps in that time there has been substantial change in college web development curriculums, but my memory of web development and design methodologies taught at the collegiate level is jaded with outdated curriculums and little regard for the business side of real-world web development.  This year, I'd like to change that.  Or at least make a dent.  
+
+With utmost gratitude, I recently accepted an adjunct instruction position in Portland State University's "graphic design department":http://www.commandsave.com to teach a 400-level course entitled _Interactive Team_.  I am honored to have the opportunity to modernize a college curriculum to more accurately reflect the realities of the field.  
+
+I'll be very excited if I can touch upon agile methodology in a way that will appeal to design majors.  Despite its rather quantitative, analytical nature, agile and scrum have substantial applications in the design field.  
+
+I'm also eager to tell whether I can teach the course out of a text editor.  That is, no WYSIWYG HTML editors allowed.  It's high time we learned to speak HTML and CSS like we learn our multiplication tables:  Without machine assistance.
+
+I invite you to have a peek at the course's "web site":http://art440.tjvanslyke.com.  It's certainly a work in progress, but it'll give you an idea of the direction I'd like to take web development and design education.
+

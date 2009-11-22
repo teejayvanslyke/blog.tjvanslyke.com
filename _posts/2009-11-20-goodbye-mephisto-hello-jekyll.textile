@@ -1,0 +1,8 @@
+---
+layout: post
+title: Goodbye Mephisto.  Hello Jekyll.
+---
+
+This week I decided I'd save some serious server CPU and migrate my blog to "Jekyll":http://github.com/mojombo/jekyll.  I don't think I'll ever look back.  That's not to slight the Mephisto team, but it is to slight overly-complex, web-administered blog backends.
+
+Anyway, welcome to the new, new blog.tjvanslyke.com.

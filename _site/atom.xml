@@ -4,13 +4,34 @@
  <title>T.J. VanSlyke - Blog</title>
  <link href="http://blog.tjvanslyke.com/atom.xml" rel="self"/>
  <link href="http://blog.tjvanslyke.com/"/>
- <updated>2009-11-20T15:53:43-08:00</updated>
+ <updated>2009-11-22T12:40:13-08:00</updated>
  <id>http://blog.tjvanslyke.com/</id>
  <author>
    <name>T.J. VanSlyke</name>
    <email>teejay.vanslyke@gmail.com</email>
  </author>
  
+ 
+ <entry>
+   <title>Bringing Web Development Education into the 21st Century</title>
+   <link href="http://blog.tjvanslyke.com/2009/11/22/bringing-web-development-education-into-the-21st-century.html"/>
+   <updated>2009-11-22T00:00:00-08:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/11/22/bringing-web-development-education-into-the-21st-century</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve been out of academics for the past three years.  Perhaps in that time there has been substantial change in college web development curriculums, but my memory of web development and design methodologies taught at the collegiate level is jaded with outdated curriculums and little regard for the business side of real-world web development.  This year, I&amp;#8217;d like to change that.  Or at least make a dent.&lt;/p&gt;
+&lt;p&gt;With utmost gratitude, I recently accepted an adjunct instruction position in Portland State University&amp;#8217;s &lt;a href=&quot;http://www.commandsave.com&quot;&gt;graphic design department&lt;/a&gt; to teach a 400-level course entitled &lt;em&gt;Interactive Team&lt;/em&gt;.  I am honored to have the opportunity to modernize a college curriculum to more accurately reflect the realities of the field.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;ll be very excited if I can touch upon agile methodology in a way that will appeal to design majors.  Despite its rather quantitative, analytical nature, agile and scrum have substantial applications in the design field.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;m also eager to tell whether I can teach the course out of a text editor.  That is, no &lt;span class=&quot;caps&quot;&gt;WYSIWYG&lt;/span&gt; &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; editors allowed.  It&amp;#8217;s high time we learned to speak &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; and &lt;span class=&quot;caps&quot;&gt;CSS&lt;/span&gt; like we learn our multiplication tables:  Without machine assistance.&lt;/p&gt;
+&lt;p&gt;I invite you to have a peek at the course&amp;#8217;s &lt;a href=&quot;http://art440.tjvanslyke.com&quot;&gt;web site&lt;/a&gt;.  It&amp;#8217;s certainly a work in progress, but it&amp;#8217;ll give you an idea of the direction I&amp;#8217;d like to take web development and design education.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Goodbye Mephisto.  Hello Jekyll.</title>
+   <link href="http://blog.tjvanslyke.com/2009/11/20/goodbye-mephisto-hello-jekyll.html"/>
+   <updated>2009-11-20T00:00:00-08:00</updated>
+   <id>http://blog.tjvanslyke.com/2009/11/20/goodbye-mephisto-hello-jekyll</id>
+   <content type="html">&lt;p&gt;This week I decided I&amp;#8217;d save some serious server &lt;span class=&quot;caps&quot;&gt;CPU&lt;/span&gt; and migrate my blog to &lt;a href=&quot;http://github.com/mojombo/jekyll&quot;&gt;Jekyll&lt;/a&gt;.  I don&amp;#8217;t think I&amp;#8217;ll ever look back.  That&amp;#8217;s not to slight the Mephisto team, but it is to slight overly-complex, web-administered blog backends.&lt;/p&gt;
+&lt;p&gt;Anyway, welcome to the new, new blog.tjvanslyke.com.&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>Aggregate statistics for delayed_job with delayed_job_stats</title>
