@@ -4,13 +4,25 @@
  <title>T.J. VanSlyke - Blog</title>
  <link href="http://blog.tjvanslyke.com/atom.xml" rel="self"/>
  <link href="http://blog.tjvanslyke.com/"/>
- <updated>2009-11-29T11:18:57-08:00</updated>
+ <updated>2010-01-17T16:09:41-08:00</updated>
  <id>http://blog.tjvanslyke.com/</id>
  <author>
    <name>T.J. VanSlyke</name>
    <email>teejay.vanslyke@gmail.com</email>
  </author>
  
+ 
+ <entry>
+   <title>A tool for teaching HTML in the classroom</title>
+   <link href="http://blog.tjvanslyke.com/2010/01/17/a-tool-for-teaching-html-in-the-classroom.html"/>
+   <updated>2010-01-17T00:00:00-08:00</updated>
+   <id>http://blog.tjvanslyke.com/2010/01/17/a-tool-for-teaching-html-in-the-classroom</id>
+   <content type="html">&lt;p&gt;My &lt;a href=&quot;http://pdxart440.info&quot;&gt;pdxart440&lt;/a&gt; students responded resoundingly when I asked them if they&amp;#8217;d like a bit of a refresher lesson in &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt;.  I was a bit dumbfounded when I tried to determine the best way to approach this.  I wanted a tool which provided instant feedback, but allowed saving changes and sharing snippets with the class.&lt;/p&gt;
+&lt;p&gt;So, as if I hadn&amp;#8217;t started enough side projects, I decided to craft a web application which was tailored specifically for teaching &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; in a classroom setting.&lt;/p&gt;
+&lt;p&gt;Think of &lt;a href=&quot;http://htmlsandbox.pdxart440.info&quot;&gt;&lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; Sandbox&lt;/a&gt; as &lt;a href=&quot;http://gist.github.com&quot;&gt;Gist&lt;/a&gt; with &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; preview.  Snippets can be created and saved without logging in and are publicly accessible.  A left panel permits editing &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; source, while the right panel renders the &lt;span class=&quot;caps&quot;&gt;HTML&lt;/span&gt; with every keystroke.&lt;/p&gt;
+&lt;p&gt;Check it out and let me know if you&amp;#8217;re using it in your classes.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://htmlsandbox.pdxart440.info&quot;&gt;[link]&lt;/a&gt;&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>Electronic Musician Teejay VanSlyke Releases Album Free Online</title>

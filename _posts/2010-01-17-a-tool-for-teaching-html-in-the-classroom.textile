@@ -1,0 +1,13 @@
+--- 
+layout: post
+title: A tool for teaching HTML in the classroom
+---
+My "pdxart440":http://pdxart440.info students responded resoundingly when I asked them if they'd like a bit of a refresher lesson in HTML.  I was a bit dumbfounded when I tried to determine the best way to approach this.  I wanted a tool which provided instant feedback, but allowed saving changes and sharing snippets with the class.
+
+So, as if I hadn't started enough side projects, I decided to craft a web application which was tailored specifically for teaching HTML in a classroom setting.  
+
+Think of "HTML Sandbox":http://htmlsandbox.pdxart440.info as "Gist":http://gist.github.com with HTML preview.  Snippets can be created and saved without logging in and are publicly accessible.  A left panel permits editing HTML source, while the right panel renders the HTML with every keystroke.
+
+Check it out and let me know if you're using it in your classes.
+
+"[link]":http://htmlsandbox.pdxart440.info
