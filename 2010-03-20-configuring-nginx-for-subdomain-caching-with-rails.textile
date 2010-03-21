@@ -1,0 +1,23 @@
+---
+layout: post
+title: Configuring Nginx to rewrite subdomain page caches in Rails
+---
+
+If you've got an application with multiple subdomains, you'll need to override Rails' default caching such that each subdomain has its own cache directory.  However, you'll need to tell Nginx where to find the cached files.  Add the following to your Nginx configuration for rewriting bliss:
+
+<pre>
+# Rewrite index.html.
+if (-f $document_root/cache/$host/$uri/index.html) {
+  rewrite .? /cache/$host/$uri/index.html break;
+}
+
+# Rewrite other *.html requests.
+if (-f $document_root/cache/$host/$uri.html) {
+  rewrite .? /cache/$host/$uri.html break;
+}
+
+# Rewrite everything else.
+if (-f $document_root/cache/$host/$uri) {
+  rewrite .? /cache/$host/$uri break;
+}
+</pre>
