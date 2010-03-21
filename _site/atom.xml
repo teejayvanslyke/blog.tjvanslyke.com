@@ -4,13 +4,37 @@
  <title>T.J. VanSlyke - Blog</title>
  <link href="http://blog.tjvanslyke.com/atom.xml" rel="self"/>
  <link href="http://blog.tjvanslyke.com/"/>
- <updated>2010-01-17T16:09:41-08:00</updated>
+ <updated>2010-03-20T17:58:56-07:00</updated>
  <id>http://blog.tjvanslyke.com/</id>
  <author>
    <name>T.J. VanSlyke</name>
    <email>teejay.vanslyke@gmail.com</email>
  </author>
  
+ 
+ <entry>
+   <title>Configuring Nginx to rewrite subdomain page caches in Rails</title>
+   <link href="http://blog.tjvanslyke.com/2010/03/20/configuring-nginx-for-subdomain-caching-with-rails.html"/>
+   <updated>2010-03-20T00:00:00-07:00</updated>
+   <id>http://blog.tjvanslyke.com/2010/03/20/configuring-nginx-for-subdomain-caching-with-rails</id>
+   <content type="html">&lt;p&gt;If you&amp;#8217;ve got an application with multiple subdomains, you&amp;#8217;ll need to override Rails&amp;#8217; default caching such that each subdomain has its own cache directory.  However, you&amp;#8217;ll need to tell Nginx where to find the cached files.  Add the following to your Nginx configuration for rewriting bliss:&lt;/p&gt;
+&lt;pre&gt;
+# Rewrite index.html.
+if (-f $document_root/cache/$host/$uri/index.html) {
+  rewrite .? /cache/$host/$uri/index.html break;
+}
+
+# Rewrite other *.html requests.
+if (-f $document_root/cache/$host/$uri.html) {
+  rewrite .? /cache/$host/$uri.html break;
+}
+
+# Rewrite everything else.
+if (-f $document_root/cache/$host/$uri) {
+  rewrite .? /cache/$host/$uri break;
+}
+&lt;/pre&gt;</content>
+ </entry>
  
  <entry>
    <title>A tool for teaching HTML in the classroom</title>

@@ -107,6 +107,30 @@
             <div id="main">
               
 <div class="post">
+  <div class="created_at">20 Mar 2010</div>
+  <h4><a href="/2010/03/20/configuring-nginx-for-subdomain-caching-with-rails.html">Configuring Nginx to rewrite subdomain page caches in Rails</a></h4>
+  <div class="text">
+    <p>If you&#8217;ve got an application with multiple subdomains, you&#8217;ll need to override Rails&#8217; default caching such that each subdomain has its own cache directory.  However, you&#8217;ll need to tell Nginx where to find the cached files.  Add the following to your Nginx configuration for rewriting bliss:</p>
+<pre>
+# Rewrite index.html.
+if (-f $document_root/cache/$host/$uri/index.html) {
+  rewrite .? /cache/$host/$uri/index.html break;
+}
+
+# Rewrite other *.html requests.
+if (-f $document_root/cache/$host/$uri.html) {
+  rewrite .? /cache/$host/$uri.html break;
+}
+
+# Rewrite everything else.
+if (-f $document_root/cache/$host/$uri) {
+  rewrite .? /cache/$host/$uri break;
+}
+</pre>
+  </div>
+</div>
+
+<div class="post">
   <div class="created_at">17 Jan 2010</div>
   <h4><a href="/2010/01/17/a-tool-for-teaching-html-in-the-classroom.html">A tool for teaching HTML in the classroom</a></h4>
   <div class="text">
